@@ -13,6 +13,7 @@ data/
 .venv/
 __pycache__/
 *.bak
+*.bak-*
 .analyze*.log
 .operator/analyze-*.log
 .DS_Store
