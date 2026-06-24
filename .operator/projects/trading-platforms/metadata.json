@@ -1,0 +1,35 @@
+{
+  "id": "5e93bc258bcd4b77",
+  "slug": "trading-platforms",
+  "name": "Trading Platforms",
+  "path": "manus://019deca6-63e5-7296-8d6b-54654c3d3ab8",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": null,
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": false,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": "2026-05-05T00:21:31.786Z",
+  "firstSeen": "2026-06-08T18:50:19.499Z",
+  "completionScore": 0,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T18:50:19.499Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}

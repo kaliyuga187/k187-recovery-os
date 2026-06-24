@@ -1,0 +1,6 @@
+{
+  "name": "@k187/lint-config",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.json"
+}

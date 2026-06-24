@@ -1,0 +1,35 @@
+{
+  "id": "dc84f36b5321abc3",
+  "slug": "facless",
+  "name": "Facless ",
+  "path": "manus://019deca6-02ca-73c6-bf8d-791294ee3531",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": "Faceless media",
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": true,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": "2026-05-05T00:21:47.892Z",
+  "firstSeen": "2026-06-08T18:50:19.486Z",
+  "completionScore": 5,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T18:50:19.486Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}

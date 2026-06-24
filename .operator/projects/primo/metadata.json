@@ -1,0 +1,35 @@
+{
+  "id": "74e607e164752768",
+  "slug": "primo",
+  "name": "Primo",
+  "path": "manus://019ded79-c7a7-77ec-9232-811bf5b8ebe6",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": null,
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": false,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": "2026-05-05T00:20:10.859Z",
+  "firstSeen": "2026-06-08T18:50:19.525Z",
+  "completionScore": 0,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T18:50:19.525Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "01f994c0a8da7576",
+  "slug": "next-js",
+  "name": "next.js",
+  "path": "manus://36586e47-18d5-4dd5-86c6-4d8568aecf46",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": "Next.js framework development workspace",
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": true,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": null,
+  "firstSeen": "2026-06-08T19:24:24.094Z",
+  "completionScore": 5,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T19:24:24.094Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}

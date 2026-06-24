@@ -1,0 +1,35 @@
+{
+  "id": "a5b68a17bd95aef2",
+  "slug": "manus-81b",
+  "name": "Manus 81b08062",
+  "path": "manus://81b08062-0a8b-48ad-b6f9-d61bc5da5996",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": null,
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": false,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": null,
+  "firstSeen": "2026-06-08T19:24:24.121Z",
+  "completionScore": 0,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T19:24:24.121Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}

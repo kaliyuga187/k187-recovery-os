@@ -1,0 +1,35 @@
+{
+  "id": "8996db17014d022b",
+  "slug": "k",
+  "name": "K187",
+  "path": "manus://019dda9d-6c7a-70f1-97e7-7cd09152d0ef",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": "My builds",
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": true,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": "2026-05-05T00:21:56.090Z",
+  "firstSeen": "2026-06-08T18:50:19.473Z",
+  "completionScore": 5,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T18:50:19.473Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}

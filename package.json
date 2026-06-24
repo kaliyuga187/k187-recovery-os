@@ -1,0 +1,39 @@
+{
+  "name": "k187-recovery-os",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first command center for recovering, organizing, and completing scattered software builds.",
+  "packageManager": "pnpm@11.1.3",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "scan": "pnpm --filter @k187/scanner run scan",
+    "report": "pnpm --filter @k187/scanner run report",
+    "compare:duplicates": "pnpm --filter @k187/scanner run compare:duplicates",
+    "analyze:long": "pnpm --filter @k187/scanner run analyze:long",
+    "active:set": "pnpm --filter @k187/scanner run \"active set\"",
+    "active:show": "pnpm --filter @k187/scanner run \"active show\"",
+    "active:pause": "pnpm --filter @k187/scanner run \"active pause\"",
+    "active:complete": "pnpm --filter @k187/scanner run \"active complete\"",
+    "hermes:skills": "pnpm --filter @k187/scanner run hermes:skills",
+    "operator:snapshot": "pnpm --filter @k187/scanner run operator:snapshot",
+    "operator:write": "pnpm --filter @k187/scanner run operator:write",
+    "operator:reports": "pnpm --filter @k187/scanner run operator:reports",
+    "operator:analyze": "pnpm --filter @k187/scanner run operator:analyze",
+    "db:push": "pnpm --filter @k187/db db:push",
+    "db:seed": "pnpm --filter @k187/db db:seed",
+    "dev": "pnpm --filter @k187/web dev",
+    "build": "pnpm -r build",
+    "lint": "eslint . --max-warnings 9999",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/node": "22.9.0",
+    "eslint": "9.16.0",
+    "@typescript-eslint/parser": "8.16.0",
+    "@typescript-eslint/eslint-plugin": "8.16.0"
+  }
+}

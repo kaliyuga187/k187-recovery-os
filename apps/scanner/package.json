@@ -1,0 +1,46 @@
+{
+  "name": "@k187/scanner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "k187": "./src/cli.ts"
+  },
+  "scripts": {
+    "scan": "tsx ./src/cli.ts scan",
+    "report": "tsx ./src/cli.ts report",
+    "compare:duplicates": "tsx ./src/cli.ts compare:duplicates",
+    "analyze:long": "tsx ./src/cli.ts analyze:long",
+    "active set": "tsx ./src/cli.ts active set",
+    "active show": "tsx ./src/cli.ts active show",
+    "active pause": "tsx ./src/cli.ts active pause",
+    "active complete": "tsx ./src/cli.ts active complete",
+    "hermes:skills": "tsx ./src/cli.ts hermes:skills",
+    "operator": "tsx ./src/cli.ts operator",
+    "operator:write": "tsx ./src/cli.ts operator write",
+    "operator:write-one": "tsx ./src/cli.ts operator write-one",
+    "operator:reports": "tsx ./src/cli.ts operator reports",
+    "operator:report-operator": "tsx ./src/cli.ts operator report-operator",
+    "operator:report-duplicates": "tsx ./src/cli.ts operator report-duplicates",
+    "operator:report-focus": "tsx ./src/cli.ts operator report-focus",
+    "operator:report-hermes": "tsx ./src/cli.ts operator report-hermes",
+    "operator:analyze": "tsx ./src/cli.ts operator analyze",
+    "operator:snapshot": "tsx ./src/cli.ts operator snapshot",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@k187/shared": "workspace:*",
+    "@k187/db": "workspace:*",
+    "@k187/ai": "workspace:*",
+    "@prisma/client": "5.22.0",
+    "commander": "12.1.0",
+    "chalk": "5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.9.0",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3",
+    "vitest": "2.1.5"
+  }
+}

@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: #0a0a0b;
+  color: #e4e4e7;
+}
+
+@layer components {
+  .panel {
+    @apply bg-panel border border-border rounded-lg p-4;
+  }
+  .pill {
+    @apply inline-flex items-center px-2 py-0.5 text-xs rounded-full border border-border bg-bg;
+  }
+  .btn {
+    @apply inline-flex items-center gap-1 px-3 py-1.5 text-sm rounded-md border border-border bg-panel hover:bg-border/40 transition-colors;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-1 px-3 py-1.5 text-sm rounded-md bg-accent text-black font-medium hover:opacity-90 transition-opacity;
+  }
+}

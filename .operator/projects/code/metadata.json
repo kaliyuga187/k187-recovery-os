@@ -1,0 +1,32 @@
+{
+  "id": "a2ceab0bbaf4510e",
+  "slug": "code",
+  "name": "Code",
+  "path": "C:\\Users\\nk187\\Downloads\\Code",
+  "source": "local",
+  "category": "infra",
+  "stack": [
+    "docker-compose"
+  ],
+  "description": null,
+  "sizeBytes": 316628,
+  "fileCount": 13,
+  "hasGit": false,
+  "hasReadme": false,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": true,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": "2026-05-31T08:19:34.813Z",
+  "firstSeen": "2026-06-18T18:24:00.946Z",
+  "completionScore": 15,
+  "deployScore": 40,
+  "healthScore": 60,
+  "compositeScore": 32,
+  "status": "active",
+  "tags": [],
+  "createdAt": "2026-06-18T18:24:00.946Z",
+  "updatedAt": "2026-06-24T02:59:20.792Z"
+}

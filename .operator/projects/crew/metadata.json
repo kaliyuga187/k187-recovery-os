@@ -1,0 +1,33 @@
+{
+  "id": "d1c5080b08f9c4cb",
+  "slug": "crew",
+  "name": "crew",
+  "path": "C:\\Users\\nk187\\AppData\\Local\\Temp\\k187-manus-7f928c2c\\crew",
+  "source": "manus-export",
+  "category": "ai-agent",
+  "stack": [],
+  "description": null,
+  "sizeBytes": 13219,
+  "fileCount": 4,
+  "hasGit": false,
+  "hasReadme": true,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": "2026-04-10T21:21:40.000Z",
+  "firstSeen": "2026-06-08T19:23:31.974Z",
+  "completionScore": 15,
+  "deployScore": 0,
+  "healthScore": 50,
+  "compositeScore": 18,
+  "status": "active",
+  "tags": [
+    "manus",
+    "scanned"
+  ],
+  "createdAt": "2026-06-08T19:23:31.974Z",
+  "updatedAt": "2026-06-08T19:23:31.974Z"
+}

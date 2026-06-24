@@ -1,0 +1,35 @@
+{
+  "id": "94f9a02b4b21c445",
+  "slug": "next-github-workflows",
+  "name": "next-github-workflows",
+  "path": "manus://3c3b795f-47f1-4f1a-8b16-fa24bee76a89",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": null,
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": false,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": null,
+  "firstSeen": "2026-06-08T19:24:24.055Z",
+  "completionScore": 0,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T19:24:24.055Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}

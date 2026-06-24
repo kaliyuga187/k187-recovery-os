@@ -1,0 +1,35 @@
+{
+  "id": "5511bdbe894791ba",
+  "slug": "next-rspack-core",
+  "name": "@next/rspack-core",
+  "path": "manus://c996b19c-8232-4d11-a79e-8a8fff41f75d",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": null,
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": false,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": null,
+  "firstSeen": "2026-06-08T19:24:24.162Z",
+  "completionScore": 0,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T19:24:24.162Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}

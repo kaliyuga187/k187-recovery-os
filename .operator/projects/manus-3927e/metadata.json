@@ -1,0 +1,35 @@
+{
+  "id": "18da2e12b8ad34fb",
+  "slug": "manus-3927e",
+  "name": "Manus 3927e452",
+  "path": "manus://3927e452-bfb6-45d3-bbd6-22d7ddc813fb",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": null,
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": false,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": null,
+  "firstSeen": "2026-06-08T19:24:24.081Z",
+  "completionScore": 0,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T19:24:24.081Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}

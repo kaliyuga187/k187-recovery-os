@@ -1,0 +1,101 @@
+// Prisma schema for K187 Recovery OS
+// All data is local-first; SQLite is the only store.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  path               String
+  source             String   // "local" | "github" | "zip" | "imported"
+  category           String
+  stack              String   // JSON array
+  description        String?
+  sizeBytes          Int      @default(0)
+  fileCount          Int      @default(0)
+  hasGit             Boolean  @default(false)
+  hasReadme          Boolean  @default(false)
+  hasEnv             Boolean  @default(false)
+  hasTests           Boolean  @default(false)
+  hasDocker          Boolean  @default(false)
+  hasCi              Boolean  @default(false)
+  hasDeployGuide     Boolean  @default(false)
+  hasBuildArtifacts  Boolean  @default(false)
+  lastModified       DateTime?
+  firstSeen          DateTime @default(now())
+  completionScore    Int      @default(0)
+  deployScore        Int      @default(0)
+  healthScore        Int      @default(0)
+  compositeScore     Int      @default(0)
+  status             String   @default("active") // active | paused | complete | abandoned | stuck
+  notes              String?
+  tags               String   @default("[]") // JSON array
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  scanRuns           ScanResult[]
+  analyses           AIAnalysis[]
+
+  @@index([category])
+  @@index([status])
+  @@index([compositeScore])
+}
+
+model ScanResult {
+  id              String   @id @default(cuid())
+  projectId       String
+  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  rootPath        String
+  scannedAt       DateTime @default(now())
+  durationMs      Int      @default(0)
+  filesScanned    Int      @default(0)
+  errorMessage    String?
+
+  @@index([projectId])
+}
+
+model DuplicateGroup {
+  id              String   @id @default(cuid())
+  fingerprint     String   @unique
+  projectIds      String   // JSON array
+  recommendation  String   // keep | merge | archive
+  reason          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AIAnalysis {
+  id                  String   @id @default(cuid())
+  projectId           String
+  project             Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  modelUsed           String
+  summary             String
+  recommendedAction   String
+  rationale           String
+  nextSteps           String   // JSON array
+  risks               String   // JSON array
+  generatedAt         DateTime @default(now())
+
+  @@index([projectId])
+}
+
+model ActiveBuild {
+  id          String   @id @default(cuid())
+  projectId   String
+  setAt       DateTime @default(now())
+  reason      String?
+  isPaused    Boolean  @default(false)
+}
+
+model Settings {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

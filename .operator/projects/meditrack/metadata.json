@@ -1,0 +1,35 @@
+{
+  "id": "256647fb0e0e4ab5",
+  "slug": "meditrack",
+  "name": "meditrack",
+  "path": "manus://019d7f56-69c3-70e4-bf1b-17a4a0d2db15",
+  "source": "manus-export",
+  "category": "unknown",
+  "stack": [
+    "manus"
+  ],
+  "description": null,
+  "sizeBytes": 0,
+  "fileCount": 0,
+  "hasGit": false,
+  "hasReadme": false,
+  "hasEnv": false,
+  "hasTests": false,
+  "hasDocker": false,
+  "hasCi": false,
+  "hasDeployGuide": false,
+  "hasBuildArtifacts": false,
+  "lastModified": "2026-05-05T00:22:07.377Z",
+  "firstSeen": "2026-06-08T18:50:19.459Z",
+  "completionScore": 0,
+  "deployScore": 0,
+  "healthScore": 20,
+  "compositeScore": 5,
+  "status": "abandoned",
+  "tags": [
+    "manus",
+    "placeholder"
+  ],
+  "createdAt": "2026-06-08T18:50:19.459Z",
+  "updatedAt": "2026-06-24T14:01:43.462Z"
+}
