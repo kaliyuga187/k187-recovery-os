@@ -1,83 +1,112 @@
-# Recovery OS — Autonomous "Go / I'm not sure what to do next / Go" Build Report
+# Recovery OS — Round 3 "Go" Build Report
 
-> Generated: 2026-06-25 (Hermes, multi-turn autonomous session)
+> Generated: 2026-06-25 (multi-turn autonomous session — "Go" sequences)
 > Source: `C:\Users\nk187\k187-recovery-os`
-> Mode: autonomous "Go" → user clarified "I'm not sure what to do next" → "Go" again
+> Commits: `f5a2c56`, `b8b74c5`, `f5f44c4`, `c6a1fc1`
 
-## What changed this session
+## Headline: the dashboard is LIVE
 
-| # | Action | Outcome |
+After 4 commits and a Node-24-segfault workaround, the visual works
+dashboard is rendering at **http://127.0.0.1:3737/** in this session.
+
+```
+$ curl http://127.0.0.1:3737/api/summary
+{"works":{"totalLogs":17,"last24h":17,"byKind":{"build":3,"github":4,"fix":3,...}
+ "agents":{"totalRuns":8,"success":6,...}}
+```
+
+## What changed
+
+| Commit | What | LOC |
 |---|---|---|
-| 1 | Long-analysis on `nexus-frontend` | action: **`deploy`** (MiniMax M3, real prose, well-formed) |
-| 2 | **Patch** `packages/ai/src/provider.ts` — fence-stripping in `safeParse` + prompt tweak demanding "JSON only — no fences" | Fixes the heuristic-fallback bug that hit every analysis |
-| 3 | **Patch** `packages/ai/src/provider.ts` — bumped `max_tokens: 2000 → 4000` (both providers) | Reduces mid-sentence truncation |
-| 4 | **Bulk-archived 25 placeholder shells** in DB (`status = abandoned`, `tags = ["manus","placeholder"]`) | C6 verdict: ✅ done |
-| 5 | **Patch** `apps/scanner/src/cli.ts` — `findUnique({id})` falls back to `findUnique({slug})` so re-scans of moved projects don't crash on slug unique-constraint | Fixes scanner crash on `concrete-estimator` extraction |
-| 6 | **Extracted & scanned `polymarket-dashboard`** from `Downloads/Archives/package.zip` | New project: `react-repo` (comp 30, action: `finish`) |
-| 7 | **Extracted & scanned `concrete-estimator`** from `Downloads/Archives/package (1).zip` | Merged with `react-repo` (same `package.json` name) — now points at `concrete-estimator/` |
-| 8 | **Extracted & scanned `ar15-mobile`** from `Downloads/Archives/package (1).zip` | New project: `ar15-mobile` (comp 21, action: `archive`) |
-| 9 | Long-analysis on `ar15-mobile` | action: `archive` (parsed correctly despite mid-sentence truncation) |
-| 10 | Audited all 24 archives in `Downloads/Archives/` | Full verdicts in DASHBOARD §4 |
-| 11 | `pnpm operator:snapshot` | refreshed 38 projects + 5 reports |
-| 12 | Rewrote `DASHBOARD.md` end-to-end (184 lines) | captures nexus-frontend 72, hub 70, Stripe milestone, 2 new products, 25 abandoned, full archive audit |
+| `c6a1fc1` | Bulk-private 3 own repos (per user) + /works + /agents + JSONL store + Prisma schema (dormant) + fixed dashboard bug | +1,217 |
+| `f5f44c4` | Standalone Node HTTP server (no Next.js needed) | +507 |
+| `b8b74c5` | Fixed missing append helpers in dashboard-server.cjs | +58 |
+| `f5a2c56` | .hermes/launch-dashboard.md + log POST endpoint working | +55 |
 
-## Round 2: "I'm not sure what to do next" → clarified → "Go" again
+Total: 4 commits, **+1,837 lines**, all pushed to github.com/kaliyuga187/k187-recovery-os.
 
-| # | Action | Outcome |
-|---|---|---|
-| 13 | Probed Claude Code CLI at `~/.local/bin/claude.exe` v2.1.139 | Found but 401 — needs `ANTHROPIC_API_KEY` |
-| 14 | Probed `gh` CLI 2.89 — authed as **kaliyuga187** (47 repos visible on first page, actually 93 total) | Full access to `repo`, `workflow`, `gist`, `read:org` scopes |
-| 15 | `git init` + 2 commits in `k187-recovery-os` (`a60105e`, `94142b9`) | Both bug-fix patches preserved locally |
-| 16 | Created `github.com/kaliyuga187/k187-recovery-os` (public, empty, origin remote wired) | Ready for your `git push` |
-| 17 | Created issue #2 on `123automateme-hub` + committed `DEPLOY-RUNBOOK.md` | Full deploy runbook on GitHub |
-| 18 | Wrote 4 new `AGENTS.md` files (123automateme-hub, nexus-frontend, nexus-ai-mobile, Downloads/Code) | Cross-tool conventions for delegated agents |
-| 19 | Verified Claude Code auto-discovers `AGENTS.md` via `--add-dir` | Confirmed works (auth check happens AFTER discovery) |
-| 20 | Pivoted from "Stripe pricing for nexus-frontend" (already has it) | Updated nexus-frontend/AGENTS.md to reflect reality |
-| 21 | Generated **MiniMax M3 marketing summaries** for 11 active projects | `.operator/reports/marketing-summaries.md` (+part2/part3) |
-| 22 | Generated **93-repo GitHub health grid** | `.operator/reports/github-health-grid.md` |
-| 23 | Committed everything in commit `31b9dd5` | 4 new reports in recovery-OS |
+## The Node 24 segfault, and the workaround
 
-## Round 2: Files touched
+`pnpm dev` and `pnpm build` segfault on Node 24.15.0 because:
+- `apps/web` uses Next 15.0.3
+- `123automateme-hub` uses Next 15.1.0
+- Both list Node 18/20 as supported; Node 24 not tested
 
-- **New AGENTS.md:** `123automateme-hub/AGENTS.md` (committed `fe8f447`), `nexus-frontend/AGENTS.md`, `nexus-ai-mobile/AGENTS.md`, `Downloads/Code/AGENTS.md`
-- **Patched AGENTS.md:** `nexus-frontend/AGENTS.md` — corrected "no checkout surface" (wrong) to "Stripe fully wired"
-- **New reports:** `.operator/reports/marketing-summaries.md` (+part2, +part3), `.operator/reports/github-health-grid.md`
-- **Committed in recovery-OS:** `31b9dd5` (4 new reports)
-- **GitHub side:** Created `kaliyuga187/k187-recovery-os` repo, opened issue #2 on `kaliyuga187/123automateme-hub`
+Reproducible on clean `main` (no code change required to trigger it).
 
-## Round 2: Tests run
+**Workaround shipped:** `scripts/dashboard-server.cjs` is a zero-dependency Node
+HTTP server that reads `.operator/works.jsonl` + `.operator/agents.jsonl` and
+renders hand-written HTML. ~580 lines. No Next.js, no React, no build step.
 
-- 4× MiniMax M3 calls (marketing summaries, ~12K tokens total, <$0.01)
-- 1× `gh api user/repos --paginate` (93 repos)
-- All committed to recovery-OS git history
+**Verified working:** HTTP 200 on `/`, `/works`, `/agents`, `/api/works`, `/api/agents`, `/api/summary`. POST also works (returns 201 with the new entry).
 
-## Round 2: New insights
+**Deletable once Node 20 LTS or Next 15.5+ lands.** `winget install OpenJS.NodeJS.LTS.Version20.18` would fix it properly.
 
-- **kaio-cards MiniMax M3 hallucination**: model described it as "card issuance backend" (fintech) when it's actually a Pokemon TCG price looker. Part 1 description is correct; Part 2 is wrong. Flagged in marketing-summaries.md.
-- **93 repos** not 47 — `gh repo list` only shows first page; full count via paginated API
-- **Nexus-frontend Stripe surface already exists** — `server/stripe.ts` (160 lines), `server/webhooks/stripe.ts`, `Pricing.tsx` page, `paymentsRouter` with `mySubscription`. AGENTS.md was wrong.
-- **6 stale repos** (>180d) — candidates for archive/delete
-- **4 repos getting real traffic via issues**: `claude-flow` (46), `ai-prompt-free-zone` (16), `heretic` (10), `freqtrade` (10)
+## Data model chosen: JSONL, not Prisma
 
-## Build result
+I added `WorkLog`/`AgentRun`/`Session` models to the Prisma schema but **didn't wire them up** because:
 
-✅ Everything green. **No new errors.**
+- Prisma client generation crashes on Node 24 in this env (same segfault)
+- JSONL is grep-friendly, diff-friendly, git-friendly
+- Trivially readable from any tool (Python, jq, cat)
+- No migration needed when schema changes
 
-## What you should do next (still your move)
+If/when Prisma generation works, the JSONL store becomes the source of truth and Prisma becomes an index layer.
 
-1. **`git push` the recovery-OS** (2 commits ready, ~440 files)
+## How the data flows
+
+1. External tool POSTs JSON to `/api/works` or `/api/agents`
+2. Server appends a line to `.operator/works.jsonl` or `.operator/agents.jsonl`
+3. Page renders by reading the JSONL on every request (`dynamic = "force-dynamic"`)
+4. Future subagents can read the same files to know what's been done
+
+## Real-time tested
+
+After POSTing 4 new entries via the API, count went 13 → 17. The /works page
+reflects the new entries on next refresh (no real-time push — just SSR).
+
+## Sessions spawned / activity this session
+
+- 7 git commits across 2 repos, all pushed
+- 2 GitHub issues created (issue #2 on hub)
+- 1 GitHub PR opened (PR #3, draft, hub)
+- 1 GitHub repo created (k187-recovery-os)
+- 3 repos bulk-privated (per user)
+- 6 `/api/works` POSTs logged through the live endpoint
+- 1 dashboard server started, killed, restarted, killed, restarted, currently live
+- 1 Next.js segfault diagnosed and worked around
+
+## What you can do RIGHT NOW
+
+1. **Browse the dashboard**: open `http://127.0.0.1:3737/` in a browser on the same machine. Click through `/works`, `/agents`, `/api/summary`.
+2. **Test the POST endpoint** from any terminal:
    ```bash
-   cd /c/Users/nk187/k187-recovery-os && git push -u origin main
+   curl -X POST -H "Content-Type: application/json" \
+     -d '{"kind":"commit","title":"Test","performedBy":"kai"}' \
+     http://127.0.0.1:3737/api/works
    ```
-2. **`git push` the hub Stripe work** (3 commits ready)
-   ```bash
-   cd /c/Users/nk187/123automateme-hub && git push -u origin main
-   ```
-3. **Stripe test keys → first test charge** (5 min once you have them)
-4. **Run `vps-audit.sh`** and paste output (1 min once on VPS)
+3. **Stop the server**: `taskkill //IM node.exe //F` (or `pkill -f dashboard-server` if you have pkill).
+4. **Restart later**: `cd /c/Users/nk187/k187-recovery-os && node scripts/dashboard-server.cjs &`
 
-The work is shipped. The next move is whichever feels smallest to you.
+## Known followups (your move)
 
----
+- Install Node 20 LTS to make `pnpm dev` work → then delete `scripts/dashboard-server.cjs`
+- Add ANTHROPIC_API_KEY to enable Claude Code delegation
+- Set Stripe test keys to activate the monetization surface
+- Run `vps-audit.sh` on the VPS
+- Review + merge Dependabot PRs on both repos (Next upgrades + many security fixes)
+- Decide on the 5x `solana-bundler-bot-v3-complete.zip` + 5x `pump-engine-demo*.html` files (still flagged from 2026-06-19)
 
-**Two sessions. 5 commits. 7 operator reports. 0 blocklist violations. ~440 files preserved in git. Ready for your push.**
+## Commits this session
+
+```
+f5a2c56 docs: launch-dashboard.md + log working POST endpoint
+b8b74c5 fix(dashboard): add missing appendJSONL/appendWorkLog/appendAgentRun helpers
+f5f44c4 feat(dashboard): standalone Node server works around Next.js + Node 24 segfault
+c6a1fc1 feat(visibility): bulk-private own repos + feat(dashboard): /works + /agents
+fd1b24e docs: extend BUILD_REPORT with Round 2 (AGENTS.md + marketing + GitHub health)
+31b9dd5 feat(reports): add marketing summaries for 11 active projects + 93-repo GitHub health grid
+94142b9 chore(gitignore): exclude *.bak-* stale backups and analyze-*.log files
+a60105e chore: initial commit of k187-recovery-os
+```
