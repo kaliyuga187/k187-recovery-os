@@ -102,6 +102,36 @@ function getAgentsSummary() {
   return { totalRuns: rows.length, running, success, failed, byKind, totalCostCents, lastRun: rows[0] };
 }
 
+function appendJSONL(file, record) {
+  if (!fs.existsSync(path.dirname(file))) {
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+  }
+  fs.appendFileSync(file, JSON.stringify(record) + "\n", "utf8");
+}
+
+function appendWorkLog(partial) {
+  const record = {
+    id: "wl_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8),
+    performedAt: new Date().toISOString(),
+    outcome: partial.outcome || "ok",
+    ...partial,
+  };
+  appendJSONL(path.join(OPERATOR, "works.jsonl"), record);
+  return record;
+}
+
+function appendAgentRun(partial) {
+  const record = {
+    id: "ar_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8),
+    startedAt: new Date().toISOString(),
+    status: "pending",
+    delegatedBy: "hermes",
+    ...partial,
+  };
+  appendJSONL(path.join(OPERATOR, "agents.jsonl"), record);
+  return record;
+}
+
 const KIND_COLORS = {
   commit: "#22c55e", deploy: "#3b82f6", scan: "#a855f7", analysis: "#d946ef",
   fix: "#ef4444", docs: "#06b6d4", stripe: "#635bff", github: "#8b5cf6",
@@ -436,9 +466,37 @@ const server = http.createServer((req, res) => {
   if (path === "/" || path === "/dashboard") return send(res, 200, dashboardHtml());
   if (path === "/works") return send(res, 200, worksHtml());
   if (path === "/agents") return send(res, 200, agentsHtml());
+  if (path === "/api/works" && req.method === "POST") {
+    let body = "";
+    req.on("data", (c) => (body += c));
+    req.on("end", () => {
+      try {
+        const parsed = JSON.parse(body);
+        const log = appendWorkLog(parsed);
+        return send(res, 201, JSON.stringify({ ok: true, log }), "application/json");
+      } catch (e) {
+        return send(res, 400, JSON.stringify({ error: "bad_json", message: e.message }), "application/json");
+      }
+    });
+    return;
+  }
   if (path === "/api/works") {
     const limit = Number(url.searchParams.get("limit") ?? 50);
     return send(res, 200, JSON.stringify({ count: listWorkLogs({ limit }).length, items: listWorkLogs({ limit }) }), "application/json");
+  }
+  if (path === "/api/agents" && req.method === "POST") {
+    let body = "";
+    req.on("data", (c) => (body += c));
+    req.on("end", () => {
+      try {
+        const parsed = JSON.parse(body);
+        const run = appendAgentRun(parsed);
+        return send(res, 201, JSON.stringify({ ok: true, run }), "application/json");
+      } catch (e) {
+        return send(res, 400, JSON.stringify({ error: "bad_json", message: e.message }), "application/json");
+      }
+    });
+    return;
   }
   if (path === "/api/agents") {
     const limit = Number(url.searchParams.get("limit") ?? 50);
