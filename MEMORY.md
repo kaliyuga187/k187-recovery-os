@@ -89,12 +89,23 @@ cd /c/Users/nk187/123automateme-hub && git push origin main
 4. **Dependabot PRs** on both repos — 116 vulnerabilities (62 recovery-os + 54 hub)
 5. **C7 — `solana-bundler-bot-v3-complete.zip` × 5 + `pump-engine-demo*.html` × 5** — flagged 2026-06-19, refused per AGENTS.md blocklist, still in `Downloads/`. Decide: delete, archive, or genuine scope reversal.
 
-## The Node 24 segfault — what to know
+## The Node 24 saga — RESOLVED ✅
 
-- `apps/web` (Next 15.0.3) and `123automateme-hub` (Next 15.1.0) both segfault on Node 24.15.0
-- **Workaround**: `scripts/dashboard-server.cjs` (standalone Node HTTP server, zero deps)
-- **Permanent fix**: `winget install OpenJS.NodeJS.LTS.Version20.18` — then `pnpm dev` works again
-- The `apps/scanner` CLI also crashes (access violation 0xC0000005). Workaround: insert projects manually via Prisma direct.
+**Update 2026-06-25:** Next 15.5.18 upgrade fixed it. `pnpm build` and `pnpm dev` both work on Node 24.15.0 now (in both `apps/web` and `123automateme-hub`).
+
+- The previous workaround (`scripts/dashboard-server.cjs`) is **OBSOLETE** — safe to delete.
+- The PR for the Next upgrade: `https://github.com/kaliyuga187/123automateme-hub/pull/4` (PR #4).
+- The recovery-OS equivalent: bumped `apps/web` to Next 15.5.18 in commit `6545ef1`.
+
+The old (pre-2026-06-25) note about the segfault is preserved below for historical reference.
+
+~~`pnpm dev` and `pnpm build` segfault on Node 24.15.0 because:~~
+- ~~`apps/web` uses Next 15.0.3~~
+- ~~`123automateme-hub` uses Next 15.1.0~~
+- ~~Both list Node 18/20 as supported; Node 24 not tested~~
+
+~~**Workaround shipped:** `scripts/dashboard-server.cjs` (now obsolete — delete)~~
+~~**Permanent fix:** `winget install OpenJS.NodeJS.LTS.Version20.18` — actually, just upgrade to Next 15.5+ instead.~~
 
 ## File layout
 
