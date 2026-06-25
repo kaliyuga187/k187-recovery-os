@@ -11,7 +11,6 @@
  * Static agent info comes from a registry in this file. Dynamic run data
  * comes from .operator/agents.jsonl.
  */
-import Link from "next/link";
 import { listAgentRuns, getAgentsSummary, type AgentRun } from "@/lib/works";
 
 export const dynamic = "force-dynamic";

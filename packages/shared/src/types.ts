@@ -13,7 +13,7 @@ export type ProjectCategory =
   | "monetization"
   | "unknown";
 
-export type ProjectSource = "local" | "github" | "zip" | "imported";
+export type ProjectSource = "local" | "github" | "zip" | "imported" | "manus-export";
 
 export type ManusImportStatus = "pending" | "imported" | "duplicate" | "failed" | "ignored";
 
