@@ -99,3 +99,98 @@ model Settings {
   value     String
   updatedAt DateTime @updatedAt
 }
+
+/// WorkLog — one row per completed action across all agents + Kai.
+/// "what got done" — commits, deploys, analyses, scans, file edits.
+/// Source of truth for the /works dashboard page.
+model WorkLog {
+  id          String   @id @default(cuid())
+  // Categorization
+  kind        String   // commit | deploy | scan | analysis | fix | docs | stripe | github | other
+  // What was done, human-readable (1-2 lines)
+  title       String
+  // Longer detail (markdown)
+  detail      String?
+  // Where it happened
+  repoSlug    String?  // optional FK to a Project.slug; null if not tied to one
+  // Where in the workspace
+  workspacePath String?
+  // Files touched (JSON array of paths)
+  filesTouched String   @default("[]")
+  // Outcome — ok | warn | fail
+  outcome     String   @default("ok")
+  // When
+  performedAt DateTime @default(now())
+  // Who did it — kai | hermes | claude-code | codex | openai | minimax-m3
+  performedBy String   @default("hermes")
+  // GitHub PR/Issue/Commit ref if applicable
+  githubRef   String?
+  // Cost in cents (for AI calls)
+  costCents   Int      @default(0)
+  // Free-form tags
+  tags        String   @default("[]")
+
+  @@index([performedAt])
+  @@index([repoSlug])
+  @@index([performedBy])
+  @@index([kind])
+}
+
+/// AgentRun — one row per invocation of an external agent (Claude Code, Codex, subagent).
+/// "what agents are doing" — captures intent, prompt summary, outcome.
+/// Source of truth for the /agents dashboard page.
+model AgentRun {
+  id          String   @id @default(cuid())
+  // Which agent
+  agentKind   String   // claude-code | codex | openai | subagent | minimax-m3
+  agentName   String   // human label, e.g. "delegation-2026-06-25-fix-cliff"
+  // Intent — what it was supposed to do
+  intent      String
+  // The prompt (truncated to first 500 chars to avoid bloat)
+  promptSummary String
+  // Outcome
+  status      String   @default("pending") // pending | running | success | fail | timeout
+  // Output (truncated)
+  outputSummary String?
+  // Cost
+  costCents   Int      @default(0)
+  // Timing
+  startedAt   DateTime @default(now())
+  finishedAt  DateTime?
+  // Who delegated
+  delegatedBy String   @default("hermes")
+  // Files written (JSON array)
+  filesWritten String  @default("[]")
+  // Free-form notes
+  notes       String?
+
+  @@index([startedAt])
+  @@index([agentKind])
+  @@index([status])
+}
+
+/// Session — one row per Hermes/Hermes-agent session.
+/// Tracks what happened across a single user-facing conversation.
+/// Source of truth for /session page.
+model Session {
+  id           String   @id @default(cuid())
+  // Compact session id from the runtime
+  sessionId    String   @unique
+  // When
+  startedAt    DateTime @default(now())
+  finishedAt   DateTime?
+  // The first user message (so we can identify sessions in lists)
+  firstPrompt  String?
+  // What was accomplished (markdown summary)
+  summary      String?
+  // Number of tool calls
+  toolCallCount Int     @default(0)
+  // WorkLogs produced (JSON array of WorkLog IDs)
+  workLogIds   String   @default("[]")
+  // User-visible meta
+  platform     String   @default("telegram") // telegram | tui | api | other
+  userLabel    String?
+
+  @@index([startedAt])
+  @@index([sessionId])
+}

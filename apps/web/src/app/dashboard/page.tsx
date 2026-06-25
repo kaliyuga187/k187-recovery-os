@@ -1,4 +1,5 @@
 import { listProjects, getActiveBuild, listDuplicateGroups } from "@/lib/reports";
+import { getWorksSummary, getAgentsSummary } from "@/lib/works";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -7,10 +8,13 @@ export default async function DashboardPage() {
   const projects = await listProjects();
   const active = await getActiveBuild();
   const dups = await listDuplicateGroups();
+  const worksSummary = getWorksSummary();
+  const agentsSummary = getAgentsSummary();
   const avg = projects.length
     ? Math.round(projects.reduce((s, p) => s + p.completionScore, 0) / projects.length)
     : 0;
   const topComplete = projects.slice(0, 5);
+  const placeholders = projects.filter((p) => p.compositeScore <= 5);
 
   return (
     <div className="space-y-6">
@@ -24,6 +28,43 @@ export default async function DashboardPage() {
         <Stat label="Avg completion" value={`${avg}/100`} />
         <Stat label="Duplicate groups" value={String(dups.length)} />
         <Stat label="Manus placeholders" value={String(placeholders.length)} />
+      </section>
+
+      <section className="grid grid-cols-4 gap-4">
+        <Stat label="Actions logged" value={String(worksSummary.totalLogs)} sub="see /works" />
+        <Stat
+          label="Last 24h"
+          value={String(worksSummary.last24h)}
+          highlight={worksSummary.last24h > 0}
+        />
+        <Stat label="Agent runs" value={String(agentsSummary.totalRuns)} sub="see /agents" />
+        <Stat
+          label="AI spend"
+          value={worksSummary.totalCostCents === 0 ? "free" : `$${(worksSummary.totalCostCents / 100).toFixed(2)}`}
+        />
+      </section>
+
+      <section className="grid md:grid-cols-2 gap-4">
+        <div className="panel">
+          <h2 className="font-semibold mb-3">
+            <Link href="/works" className="hover:text-accent">Works →</Link>
+          </h2>
+          <p className="text-sm text-muted">
+            What got done — last 24h: <span className="text-accent font-mono">{worksSummary.last24h}</span>,
+            last 7d: <span className="text-accent font-mono">{worksSummary.last7d}</span>.
+            See timeline, by-kind, by-performer breakdown.
+          </p>
+        </div>
+        <div className="panel">
+          <h2 className="font-semibold mb-3">
+            <Link href="/agents" className="hover:text-accent">Agents →</Link>
+          </h2>
+          <p className="text-sm text-muted">
+            {agentsSummary.totalRuns} runs total · {agentsSummary.running} running ·{" "}
+            {agentsSummary.success} succeeded · {agentsSummary.failed} failed.
+            Registry of 6 agent kinds.
+          </p>
+        </div>
       </section>
 
       <section className="panel">
@@ -69,11 +110,16 @@ export default async function DashboardPage() {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value, highlight, sub }: { label: string; value: string; highlight?: boolean; sub?: string }) {
   return (
     <div className="panel">
       <div className="text-xs text-muted uppercase tracking-wide">{label}</div>
-      <div className="text-2xl font-semibold mt-1">{value}</div>
+      <div
+        className={`text-2xl font-semibold mt-1 ${highlight ? "text-accent" : ""}`}
+      >
+        {value}
+      </div>
+      {sub && <div className="text-xs text-muted mt-1">{sub}</div>}
     </div>
   );
 }
